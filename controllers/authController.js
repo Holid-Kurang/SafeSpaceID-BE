@@ -5,17 +5,18 @@ const jwt = require('jsonwebtoken');
 const users = [];
 
 exports.register = async (req, res) => {
-    const { username, email, password } = req.body;
-    console.log(req.body);
-    if (!username || !email || !password) {
-        return res.status(400).json({ success: false, message: 'Semua field wajib diisi.' });
+    const { email, password } = req.body;
+    console.log("isi body", req.body);
+    if (!email || !password) {
+        return res.status(400).json({ success: false, message: 'Email dan password wajib diisi.' });
     }
     const existingUser = users.find(u => u.email === email);
     if (existingUser) {
         return res.status(400).json({ success: false, message: 'Email sudah terdaftar.' });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    users.push({ username, email, password: hashedPassword });
+    users.push({ email, password: hashedPassword });
+    console.log(users);
     return res.json({ success: true, message: 'Registrasi berhasil.' });
 }
 

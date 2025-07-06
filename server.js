@@ -9,7 +9,10 @@ const helmet = require('helmet');
 require('dotenv').config();
 
 // Middleware
-app.use(cors({ origin: process.env.CORS_ORIGIN })); // Mengizinkan ke origin frontend kamu.
+app.use(cors({ 
+    origin: process.env.CORS_ORIGIN, 
+    credentials: true // Izinkan kredensial (cookie, header auth, dll)
+}));
 app.use(bodyParser.json()); // Menguraikan permintaan JSON dari body request
 app.use(bodyParser.urlencoded({ extended: true })); // Menguraikan permintaan URL-encoded
 app.use(helmet());
